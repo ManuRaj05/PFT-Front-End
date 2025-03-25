@@ -26,14 +26,14 @@ export async function login(email, password) {
   }
 }
 
-export async function register(name, email, password) {
+export async function register(name, email, username, password) {
   try {
     const response = await fetch(`${API_URL}/auth/register`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ name, email, password }),
+      body: JSON.stringify({name, email, username, password }),
     })
 
     if (!response.ok) {
@@ -50,7 +50,7 @@ export async function register(name, email, password) {
 }
 
 export async function getAuthToken() {
-  const cookieStore = cookies()
+  const cookieStore = await cookies()
   return cookieStore.get("token")?.value;
 }
 

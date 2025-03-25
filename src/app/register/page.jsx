@@ -14,6 +14,7 @@ export default function RegisterPage() {
   const router = useRouter()
   const [name, setName] = useState("")
   const [email, setEmail] = useState("")
+  const [username, setUsername] = useState("")
   const [password, setPassword] = useState("")
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState(null)
@@ -24,7 +25,7 @@ export default function RegisterPage() {
     setError(null)
 
     try {
-      await register(name, email, password)
+      await register(name, email, username, password)
       router.push("/login?registered=true")
     } catch (err) {
       setError(err instanceof Error ? err.message : "Failed to register")
@@ -65,6 +66,15 @@ export default function RegisterPage() {
                 placeholder="name@example.com"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
+                required />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="username">Username</Label>
+              <Input
+                id="username"
+                placeholder="johndoe"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
                 required />
             </div>
             <div className="space-y-2">
